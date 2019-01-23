@@ -47,7 +47,7 @@ defmodule Boggle do
   end
 
   @doc """
-  Finds all words of length 4 of greater on a grid, given
+  Finds all words of length 4 or greater on a grid, given
   a starting location to search.
 
   ## Examples
