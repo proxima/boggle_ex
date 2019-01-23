@@ -19,7 +19,7 @@ defmodule Boggle do
   defp empty_list?([_]), do: false
   defp empty_list?([_ | _]), do: false
 
-  defp continue?(dict, prefix) do
+  defp prefix?(dict, prefix) do
     Retrieval.prefix(dict, prefix)
     |> empty_list?
     |> Kernel.!()
@@ -63,13 +63,16 @@ defmodule Boggle do
     board = Map.delete(board, point)
     base = self_match(dict, word)
 
-    neighbors(board, point)
-    |> Enum.reduce(base, fn neighbor, acc ->
-      case continue?(dict, word) do
-        true -> [acc | solve(dict, board, word, neighbor)]
-        false -> acc
-      end
-    end)
+    case prefix?(dict, word) do
+      true ->
+        neighbors(board, point)
+        |> Enum.reduce(base, fn neighbor, acc ->
+          [acc | solve(dict, board, word, neighbor)]
+        end)
+
+      false ->
+        base
+    end
     |> List.flatten()
   end
 end
