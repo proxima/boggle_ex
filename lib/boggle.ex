@@ -15,14 +15,10 @@ defmodule Boggle do
     |> Enum.filter(&Map.has_key?(board, &1))
   end
 
-  defp empty_list?([]), do: true
-  defp empty_list?([_]), do: false
-  defp empty_list?([_ | _]), do: false
-
   defp prefix?(dict, prefix) do
     Retrieval.prefix(dict, prefix)
-    |> empty_list?
-    |> Kernel.!()
+    |> length()
+    |> Kernel.>(0)
   end
 
   defp self_match(_dict, word) when byte_size(word) < 4, do: []
