@@ -17,8 +17,8 @@ defmodule Boggle do
 
   defp prefix?(dict, prefix) do
     Retrieval.prefix(dict, prefix)
-    |> length()
-    |> Kernel.>(0)
+    |> Enum.empty?()
+    |> Kernel.!()
   end
 
   defp self_match(_dict, word) when byte_size(word) < 4, do: []
